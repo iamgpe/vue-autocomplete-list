@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "test": "vue serve --open ./src/test/test.vue",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-autocomplete-list.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-autocomplete-list.esm.js",
