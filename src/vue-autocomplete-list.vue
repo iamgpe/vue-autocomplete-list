@@ -1,7 +1,7 @@
 <template>
-  <div class="vue-autocomplete-list-searchbar">
-    <input type="text" v-model="searchedValue"/>
-    <div class="items" ref="items" v-if="occurrences && occurrences != 'none'">
+  <div class="vue-autocomplete-list-searchbar" :class="{ default: defaultstyle }">
+    <input type="text" v-model="searchedValue" :placeholder="placeholder" @click="showItems()">
+    <div class="items" v-if="occurrences && occurrences != 'none'">
       <span v-for="(item, i) in occurrences" :key="i" @click="setSearchedValue(item[searchKey])" v-html="item.fakeItemName"></span>
     </div>
     <div class="items" v-if="occurrences == 'none'">
@@ -22,9 +22,9 @@ export default {
       type: String,
       default: 'name'
     },
-    type: {
-      type: String,
-      default: 'dropdown'
+    immediateDropdown: {
+      type: Boolean,
+      default: false
     },
     debounceTimer: {
       type: Number,
@@ -33,6 +33,14 @@ export default {
     errorMessage: {
       type: String,
       default: 'Aucune occurrence trouvée'
+    },
+    defaultstyle: {
+      type: Boolean,
+      default: true
+    },
+    placeholder: {
+      type: String,
+      default: 'Rechercher quelque chose..'
     }
   },
   computed: {
@@ -47,13 +55,15 @@ export default {
   data: () => ({
     searchedValue: '',
     timer: null,
-    occurrences: [],
+    occurrences: false,
     watchChanges: true
   }),
   methods: {
     showItems () {
-      if (this.type == 'dropdown') {
-        if (['none', false].includes(this.occurrences)) {
+      if (this.immediateDropdown && ['none', false].includes(this.occurrences)) {
+        if (this.searchedValue != '') {
+          this.setSearchedValue(this.searchedValue)
+        } else {
           this.occurrences = this.list
         }
       }
@@ -95,6 +105,41 @@ export default {
 }
 </script>
 
-<style>
+<style type="css">
+.vue-autocomplete-list-searchbar.default {
+  width: 100%;
+  box-sizing: border-box;
+}
 
+.vue-autocomplete-list-searchbar.default input {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+.vue-autocomplete-list-searchbar.default .items {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #fff;
+  max-height: 200px;
+  box-sizing: border-box;
+  overflow: auto;
+  flex-direction: column;
+  display: flex;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.vue-autocomplete-list-searchbar.default .items > span {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+}
+
+.vue-autocomplete-list-searchbar.default .items > span:not(:first-child) {
+  border-top: 1px solid #ccc;
+}
 </style>
