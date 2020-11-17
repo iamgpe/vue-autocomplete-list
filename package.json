@@ -22,9 +22,15 @@
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^16.0.0",
+    "@vue/compiler-sfc": "^3.0.2",
     "rollup": "^2.33.2",
+    "rollup-plugin-css-bundle": "^1.0.4",
     "rollup-plugin-vue": "^6.0.0-beta.11",
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.0.2",
+    "postcss": "^8.1.7"
   }
 }

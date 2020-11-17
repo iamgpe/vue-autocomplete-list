@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-autocomplete-list-searchbar" :class="{ default: defaultstyle }">
+  <div class="vue-autocomplete-list-searchbar" :class="{ 'default': defaultstyle }">
     <input type="text" v-model="searchedValue" :placeholder="placeholder" @click="showItems()">
     <div class="items" v-if="occurrences && occurrences != 'none'">
       <span v-for="(item, i) in occurrences" :key="i" @click="setSearchedValue(item[searchKey])" v-html="item.fakeItemName"></span>
@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'vue-autocomplete-list',
   props: {
     items: {
       type: Array
@@ -104,42 +105,3 @@ export default {
   }
 }
 </script>
-
-<style type="css">
-.vue-autocomplete-list-searchbar.default {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.vue-autocomplete-list-searchbar.default input {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  width: 100%;
-  padding: 8px 12px;
-  box-sizing: border-box;
-}
-
-.vue-autocomplete-list-searchbar.default .items {
-  width: 100%;
-  border-radius: 4px;
-  background-color: #fff;
-  max-height: 200px;
-  box-sizing: border-box;
-  overflow: auto;
-  flex-direction: column;
-  display: flex;
-  border: 1px solid #ccc;
-  border-top: none;
-}
-
-.vue-autocomplete-list-searchbar.default .items > span {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 12px;
-}
-
-.vue-autocomplete-list-searchbar.default .items > span:not(:first-child) {
-  border-top: 1px solid #ccc;
-}
-</style>

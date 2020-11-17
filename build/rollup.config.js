@@ -6,10 +6,13 @@ export default {
   input: 'src/wrapper.js',
   output: {
     name: 'VueAutocompleteList',
-    exports: 'named'
+    exports: 'named',
+    format: 'cjs'
   },
   plugins: [
-    commonjs(),
+    commonjs({
+      include: 'node_modules'
+    }),
     vue({
       css: true,
       compileTemplate: true
